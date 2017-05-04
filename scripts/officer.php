@@ -300,12 +300,29 @@ class Officer
             }
 
             if (is_dir($path)) {
-                $results[] = @rmdir($path) ? "{$path} removed." : "{$path} removing failed.";
+                $results[] = $this->rrmdir($path) ? "{$path} removed." : "{$path} removing failed.";
             }
         }
 
         return implode(PHP_EOL, $results);
     }
+
+
+ private function rrmdir($dir) { 
+   if (is_dir($dir)) { 
+     $objects = @scandir($dir); 
+     foreach ($objects as $object) { 
+       if ($object != "." && $object != "..") { 
+         if (filetype($dir."/".$object) == "dir") $this->rrmdir($dir."/".$object); else @unlink($dir."/".$object); 
+       } 
+     } 
+     reset($objects); 
+     return @rmdir($dir); 
+   } else {
+    return false;
+   }
+ } 
+
 
     /**
      * Get children dirs or files belongs to the given $path.
