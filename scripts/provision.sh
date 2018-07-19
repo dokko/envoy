@@ -16,7 +16,7 @@
 #   (We assume username you are going to use is 'deployer')
 #
 #   deployer ALL=(ALL:ALL) NOPASSWD: ALL
-#   %www-data ALL=(ALL:ALL) NOPASSWD:/usr/sbin/service php7.0-fpm restart,/usr/sbin/service nginx restart
+#   %www-data ALL=(ALL:ALL) NOPASSWD:/usr/sbin/service php7.2-fpm restart,/usr/sbin/service nginx restart
 ##
 
 ##
@@ -133,24 +133,24 @@ ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 ##
 
 apt-get install -y --force-yes \
-    php7.0-cli \
-    php7.0-dev \
+    php7.2-cli \
+    php7.2-dev \
     php-pgsql \
     php-sqlite3 \
     php-gd \
     php-apcu \
     php-curl \
-    php7.0-mcrypt \
+    php7.2-mcrypt \
     php-imap \
     php-mysql \
     php-memcached \
-    php7.0-readline \
+    php7.2-readline \
     php-xdebug \
     php-mbstring \
     php-xml \
-    php7.0-zip \
-    php7.0-intl \
-    php7.0-bcmath \
+    php7.2-zip \
+    php7.2-intl \
+    php7.2-bcmath \
     php-soap;
 
 ##
@@ -172,20 +172,20 @@ printf "\nPATH=\"/home/${USERNAME}/.composer/vendor/bin:\$PATH\"\n" | tee -a /ho
 # Set PHP CLI configuration.
 ##
 
-sed -i "s/expose_php = .*/expose_php = Off/" /etc/php/7.0/cli/php.ini
+sed -i "s/expose_php = .*/expose_php = Off/" /etc/php/7.2/cli/php.ini
 # Commented out because out-of-box value is already confitured for production.
-# sed -i "s/error_reporting = .*/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/" /etc/php/7.0/cli/php.ini
-sed -i "s/display_errors = .*/display_errors = Off/" /etc/php/7.0/cli/php.ini
-sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.0/cli/php.ini
-sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/cli/php.ini
+# sed -i "s/error_reporting = .*/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/" /etc/php/7.2/cli/php.ini
+sed -i "s/display_errors = .*/display_errors = Off/" /etc/php/7.2/cli/php.ini
+sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.2/cli/php.ini
+sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.2/fpm/php.ini
+sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.2/fpm/php.ini
+sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.2/cli/php.ini
 
 # Install Nginx & PHP-FPM.
 
 apt-get install -y --force-yes \
     nginx \
-    php7.0-fpm;
+    php7.2-fpm;
 
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
@@ -195,15 +195,15 @@ service nginx restart
 # Setup PHP-FPM configurations
 ##
 
-sed -i "s/expose_php = .*/expose_php = Off/" /etc/php/7.0/fpm/php.ini
+sed -i "s/expose_php = .*/expose_php = Off/" /etc/php/7.2/fpm/php.ini
 # Commented out because out-of-box value is already confitured for production.
-# sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/fpm/php.ini
-sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/fpm/php.ini
-sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/fpm/php.ini
-sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
+# sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.2/fpm/php.ini
+sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.2/fpm/php.ini
+sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.2/fpm/php.ini
+sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.2/fpm/php.ini
+sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.2/fpm/php.ini
+sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.2/fpm/php.ini
+sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.2/fpm/php.ini
 
 ##
 # Disable xdebug on the CLI.
@@ -242,15 +242,15 @@ EOF
 sed -i "s/user www-data;/user ${USERNAME};/" /etc/nginx/nginx.conf
 sed -i "s/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/" /etc/nginx/nginx.conf
 
-sed -i "s/user = www-data/user = ${USERNAME}/" /etc/php/7.0/fpm/pool.d/www.conf
-sed -i "s/group = www-data/group = ${USERNAME}/" /etc/php/7.0/fpm/pool.d/www.conf
+sed -i "s/user = www-data/user = ${USERNAME}/" /etc/php/7.2/fpm/pool.d/www.conf
+sed -i "s/group = www-data/group = ${USERNAME}/" /etc/php/7.2/fpm/pool.d/www.conf
 
-sed -i "s/listen\.owner.*/listen.owner = ${USERNAME}/" /etc/php/7.0/fpm/pool.d/www.conf
-sed -i "s/listen\.group.*/listen.group = ${USERNAME}/" /etc/php/7.0/fpm/pool.d/www.conf
-sed -i "s/;listen\.mode.*/listen.mode = 0666/" /etc/php/7.0/fpm/pool.d/www.conf
+sed -i "s/listen\.owner.*/listen.owner = ${USERNAME}/" /etc/php/7.2/fpm/pool.d/www.conf
+sed -i "s/listen\.group.*/listen.group = ${USERNAME}/" /etc/php/7.2/fpm/pool.d/www.conf
+sed -i "s/;listen\.mode.*/listen.mode = 0666/" /etc/php/7.2/fpm/pool.d/www.conf
 
 service nginx restart
-service php7.0-fpm restart
+service php7.2-fpm restart
 
 ##
 # Install MySQL.
