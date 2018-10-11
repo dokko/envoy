@@ -148,6 +148,7 @@ apt-get install -y --force-yes \
     php-xdebug \
     php7.2-mbstring \
     php7.2-dom \
+    php7.2-mysql \
     php-xml \
     php7.2-zip \
     php7.2-intl \
