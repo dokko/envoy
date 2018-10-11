@@ -146,7 +146,8 @@ apt-get install -y --force-yes \
     php-memcached \
     php7.2-readline \
     php-xdebug \
-    php-mbstring \
+    php7.2-mbstring \
+    php7.2-dom \
     php-xml \
     php7.2-zip \
     php7.2-intl \
