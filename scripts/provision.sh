@@ -141,18 +141,17 @@ apt-get install -y --force-yes \
     php-apcu \
     php-curl \
     php7.2-mcrypt \
-    php-imap \
-    php-mysql \
+    php-imap \    
     php-memcached \
     php7.2-readline \
     php-xdebug \
     php7.2-mbstring \
     php7.2-dom \
-    php7.2-mysql \
-    php-xml \
+    php7.2-mysql \    
     php7.2-zip \
     php7.2-intl \
     php7.2-bcmath \
+    php-xml \
     php-soap;
 
 ##
