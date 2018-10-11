@@ -139,8 +139,7 @@ apt-get install -y --force-yes \
     php-sqlite3 \
     php-gd \
     php-apcu \
-    php-curl \
-    php7.2-mcrypt \
+    php-curl \    
     php-imap \    
     php-memcached \
     php7.2-readline \
@@ -153,6 +152,8 @@ apt-get install -y --force-yes \
     php7.2-bcmath \
     php-xml \
     php-soap;
+
+## php7.2-mcrypt \ have problem
 
 ##
 # Install composer.
