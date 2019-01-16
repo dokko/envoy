@@ -140,7 +140,7 @@ apt-get install -y --force-yes \
     php-gd \
     php-apcu \
     php-curl \
-    php7.2-mcrypt \
+    php7.0-mcrypt \
     php-imap \
     php-mysql \
     php-memcached \
