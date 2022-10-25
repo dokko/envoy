@@ -59,7 +59,7 @@ useradd $USERNAME -g www-data -m
 # Googled for unattended way of setting a password, but...
 echo "Password for user, ${USERNAME}."
 passwd $USERNAME
-usermod -G www-data ubuntu
+usermod -G www-data $USERNAME
 
 ##
 # Update package list & update system packages.
