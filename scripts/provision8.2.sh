@@ -153,7 +153,26 @@ ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 #     php7.3-bcmath \
 #     php-soap;
 
-apt install php8.2-fpm php8.2-mysql php8.2-mbstring php8.2-xml php8.2-bcmath
+#apt install php8.2-fpm php8.2-mysql php8.2-mbstring php8.2-xml php8.2-bcmath
+apt install -y \
+nginx \
+php8.2-fpm \
+php8.2-common \
+php8.2-mysql \
+php8.2-xml \
+php8.2-xmlrpc \
+php8.2-curl \
+php8.2-gd \
+php8.2-imagick \
+php8.2-cli \
+php8.2-dev \
+php8.2-imap \
+php8.2-mbstring \
+php8.2-opcache \
+php8.2-soap \
+php8.2-zip \
+php8.2-redis \
+php8.2-intl \
 
 ## php7.3-mcrypt \ have problem
 
@@ -180,16 +199,19 @@ sed -i "s/expose_php = .*/expose_php = Off/" /etc/php/8.2/cli/php.ini
 # Commented out because out-of-box value is already confitured for production.
 # sed -i "s/error_reporting = .*/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/" /etc/php/8.2/cli/php.ini
 sed -i "s/display_errors = .*/display_errors = Off/" /etc/php/8.2/cli/php.ini
-sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/8.2/cli/php.ini
+sed -i "s/memory_limit = .*/memory_limit = -1/" /etc/php/8.2/cli/php.ini
 sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/8.2/fpm/php.ini
 sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/8.2/fpm/php.ini
 sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/8.2/cli/php.ini
 
-# Install Nginx & PHP-FPM.
+# upload_max_filesize = 32M 
+# post_max_size = 48M 
+# memory_limit = 256M 
+# max_execution_time = 600 
+# max_input_vars = 3000 
+# max_input_time = 1000
 
-apt-get install -y --force-yes \
-    nginx \
-    php8.2-fpm;
+# Install Nginx & PHP-FPM.
 
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
@@ -260,10 +282,14 @@ service php8.2-fpm restart
 # Install MySQL.
 ##
 
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb
+dpkg -i mysql-apt-config_0.8.22-1_all.deb
+apt update
+
 debconf-set-selections <<< "mysql-community-server mysql-community-server/data-dir select ''"
 debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password secret"
 debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password secret"
-apt-get install -y mysql-server
+apt install -y mysql-server
 
 ##
 # Configure MySQL password lifetime.
@@ -328,8 +354,8 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=secret my
 # Install Redis, Memche, Beanstalk
 ##
 
-# apt-get install -y \
-#     redis-server \
+ apt-get install -y \
+     redis-server
 #     memcached \
 #     beanstalkd;
 
