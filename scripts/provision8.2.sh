@@ -200,7 +200,7 @@ sed -i "s/expose_php = .*/expose_php = Off/" /etc/php/8.2/cli/php.ini
 # Commented out because out-of-box value is already confitured for production.
 # sed -i "s/error_reporting = .*/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/" /etc/php/8.2/cli/php.ini
 sed -i "s/display_errors = .*/display_errors = Off/" /etc/php/8.2/cli/php.ini
-sed -i "s/memory_limit = .*/memory_limit = -1/" /etc/php/8.2/cli/php.ini
+sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/8.2/cli/php.ini
 sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/8.2/fpm/php.ini
 sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/8.2/fpm/php.ini
 sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/8.2/cli/php.ini
@@ -225,7 +225,7 @@ service nginx restart
 sed -i "s/expose_php = .*/expose_php = Off/" /etc/php/8.2/fpm/php.ini
 # Commented out because out-of-box value is already confitured for production.
 # sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.2/fpm/php.ini
-sed -i "s/display_errors = .*/display_errors = On/" /etc/php/8.2/fpm/php.ini
+sed -i "s/display_errors = .*/display_errors = Off/" /etc/php/8.2/fpm/php.ini
 sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/8.2/fpm/php.ini
 sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/8.2/fpm/php.ini
 sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/8.2/fpm/php.ini
