@@ -174,6 +174,8 @@ php8.2-zip \
 php8.2-redis \
 php8.2-intl \
 php8.2-bcmath \
+unzip \
+p7zip-full \
 
 ## php7.3-mcrypt \ have problem
 
