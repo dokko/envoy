@@ -27,3 +27,24 @@ chown deployer:deployer -R /home/deployer/.ssh
 ssh-keygen -t rsa -b 4096 -C "jw.lee@linppl.com"
 cat .ssh/id_rsa.pub
 ssh -T git@github.com
+
+
+# nvm install
+sudo apt install curl gnupg2 gnupg -y
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+source ~/.bashrc
+nvm install 18.20.2
+npm install -g yarn
+echo -e "\nalias art='php artisan'\nalias a:t='php artisan tinker'\nalias r:l='php artisan route:list'\nalias c:d='composer dump-autoload'" >> ~/.bashrc
+source ~/.bashrc
+
+sudo mysql -uroot -p mysql
+
+create user 'dariuser'@'%' identified by 'dari0901';
+grant all privileges on dari.* to 'dariuser'@'%';
+create user 'dariuser'@'localhost' identified by 'dari0901';
+grant all privileges on dari.* to 'dariuser'@'localhost';
+flush privileges;
+create database dari;
+
+composer require fakerphp/faker
