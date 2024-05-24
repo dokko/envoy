@@ -48,3 +48,7 @@ flush privileges;
 create database dari;
 
 composer require fakerphp/faker
+
+
+#for pdf to image
+sudo sed -i '/disable ghostscript format types/,+6d' /etc/ImageMagick-6/policy.xml
