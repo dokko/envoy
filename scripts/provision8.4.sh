@@ -73,12 +73,12 @@ locale-gen en_US.UTF-8
 # Install some PPAs(Personal Package Archive).
 ##
 
-sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php # Press enter to confirm.
+sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 sudo apt update
 
-sudo apt install php8.4-cli php8.4-fpm unzip nginx
+sudo apt install -y php8.4-cli php8.4-fpm unzip nginx
 
-sudo apt install php8.4-common php8.4-{bcmath,bz2,curl,gd,gmp,intl,mbstring,opcache,readline,xml,zip}
+sudo apt install -y php8.4-common php8.4-{bcmath,bz2,curl,gd,gmp,intl,mbstring,opcache,readline,xml,zip}
 
 
 ##
