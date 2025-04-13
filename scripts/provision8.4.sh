@@ -283,6 +283,23 @@ service supervisor start
 
 # Enable Swap Memory
 
-# /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-# /sbin/mkswap /var/swap.1
-# /sbin/swapon /var/swap.1
+# 1. Swap 파일 생성 (2GB)
+sudo fallocate -l 2G /root/swapfile
+
+# 만약 fallocate 안되면 (구형 시스템)
+# sudo dd if=/dev/zero of=/root/swapfile bs=1M count=2048
+
+# 2. 권한 설정
+sudo chmod 600 /root/swapfile
+
+# 3. Swap 영역으로 초기화
+sudo mkswap /root/swapfile
+
+# 4. Swap 활성화
+sudo swapon /root/swapfile
+
+# 5. 부팅 시 자동 적용 설정
+echo '/root/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+# 6. 현재 스왑 상태 확인
+swapon --show
