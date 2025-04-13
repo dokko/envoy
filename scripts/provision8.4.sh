@@ -277,7 +277,7 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=secret my
 ##
 # Configure Supervisor & start it.
 ##
-
+sudo apt-get install -y supervisor
 systemctl enable supervisor.service
 service supervisor start
 
