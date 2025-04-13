@@ -235,6 +235,16 @@ mysql --user="root" --password="secret" -e "FLUSH PRIVILEGES;"
 service mysql restart
 
 ##
+# Change MySQL root auth method to password based login
+##
+
+sudo mysql -u root <<EOF
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secret';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'secret';
+FLUSH PRIVILEGES;
+EOF
+
+##
 # Add timezone support to MySQL
 ##
 
