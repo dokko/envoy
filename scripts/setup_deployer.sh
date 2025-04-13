@@ -28,7 +28,7 @@ usermod -aG www-data $USER
 # sudo 권한 설정 (비밀번호 없이 가능)
 echo "Configuring sudoers for $USER..."
 
-cat <<EOF >> /etc/sudoers
+cat <<EOF | sudo tee -a /etc/sudoers
 
 # deployer 계정에 대한 권한 부여
 ${USER} ALL=(ALL:ALL) NOPASSWD: ALL
