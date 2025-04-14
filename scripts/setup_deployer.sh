@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
 # 배포할 사용자 계정명
 USER=deployer
 
@@ -36,6 +41,14 @@ ${USER} ALL=(ALL:ALL) NOPASSWD: ALL
 # www-data 그룹에 대한 권한 부여
 %www-data ALL=(ALL:ALL) NOPASSWD:/usr/sbin/service php8.4-fpm restart, /usr/sbin/service nginx restart
 EOF
+
+# .ssh 디렉토리 생성 및 권한 설정
+echo "Setting up SSH key for $USER..."
+mkdir -p /home/${USER}/.ssh
+cp /home/ubuntu/.ssh/authorized_keys /home/${USER}/.ssh/
+chown -R ${USER}:${USER} /home/${USER}/.ssh
+chmod 700 /home/${USER}/.ssh
+chmod 600 /home/${USER}/.ssh/authorized_keys
 
 echo "User $USER created and added to www-data group."
 echo "Login with: ssh $USER@your-server-ip"
