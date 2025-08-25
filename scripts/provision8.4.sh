@@ -78,7 +78,7 @@ sudo apt update
 
 sudo apt install -y php8.4-cli php8.4-fpm unzip nginx
 
-sudo apt install -y php8.4-common php8.4-{bcmath,bz2,curl,gd,gmp,intl,mbstring,opcache,readline,xml,zip}
+sudo apt install -y php8.4-common php8.4-{bcmath,bz2,curl,gd,gmp,intl,mbstring,opcache,readline,xml,zip,mysql}
 
 
 ##
